@@ -5,5 +5,5 @@ show_downloads: false
 github:
     is_project_page: true
     repository_url: https://github.com/season-studio/
-    owner_name: Season Studio
-    owner_url: https://season-studio.github.io/
+    owner_name: Season
+    owner_url: mailto:season-studio@outlook.com
