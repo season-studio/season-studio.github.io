@@ -26,7 +26,7 @@ module.exports = function (_baseUrl) {
     const defaultExeOpt = {cwd:__dirname, stdio:['inherit', 'inherit', 'inherit']};
 
     const packageFile = path.resolve(__dirname, 'package.json');
-    fs.existsSync(packageFile) || $exec('npm init', defaultExeOpt);
+    fs.existsSync(packageFile) || $scaff.exec('npm init', defaultExeOpt);
     
     let ret = $scaff.exec(`npm i -D ${devModules.join(" ")}`, defaultExeOpt);
     $scaff.assert(!(ret instanceof Error), "Cannot install modules for developing");
