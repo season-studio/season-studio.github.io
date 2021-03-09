@@ -32,13 +32,14 @@ module.exports = function (_baseUrl) {
     $scaff.assert(!(ret instanceof Error), "Cannot install modules for developing");
     
     $scaff.logTitle("info", "Config package");
-    ret = fs.readFileSync(packageFile);
-    ret = JSON.parse(String(ret));
-    ret.bundleConfigs = (ret.bundleConfigs || {});
-    ret.scripts = (ret.scripts || {});
-    ret.scripts["rollup-release"] = "node .\\.rollup\\rollup.js --compress true";
-    ret.scripts["rollup-debug"] = "node .\\.rollup\\rollup.js";
-    fs.writeFileSync(packageFile, JSON.stringify(ret, null, 2));
+    $scaff.configJSON(packageFile, json => {
+        json || (json = {});
+        json.bundleConfigs = (json.bundleConfigs || {});
+        json.scripts = (json.scripts || {});
+        json.scripts["rollup-release"] = "node .\\.rollup\\rollup.js --compress true";
+        json.scripts["rollup-debug"] = "node .\\.rollup\\rollup.js";
+        return json;
+    });
 
     $scaff.logTitle("info", "Download files");
     $scaff.downloadFiles(files, _baseUrl, __dirname);
