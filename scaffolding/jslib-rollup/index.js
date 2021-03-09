@@ -46,7 +46,7 @@ module.exports = function (_baseUrl) {
     $scaff.logTitle("info", "Download files");
     $scaff.downloadFiles(files, _baseUrl, __dirname);
 
-    $scaff.logTitle("Config");
+    $scaff.logTitle("info", "Config");
     $scaff.log("comment", "config launch options...");
     $scaff.configJSON(path.resolve(__dirname, ".vscode/launch.json"), json => {
         json || (json = {});
