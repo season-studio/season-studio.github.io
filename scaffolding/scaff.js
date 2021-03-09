@@ -191,7 +191,7 @@ async function main() {
             $scaff.logEx("info", "STARTING", String(selected));
             selectedFunc(path.dirname(String(url)) + "/");
             fs.rmSync(filePath);
-            $scaff.logTitle("Done");
+            $scaff.logTitle("info", "Done");
         }
     } catch(err) {
         $scaff.logEx("error", "EXCEPTION", err);
