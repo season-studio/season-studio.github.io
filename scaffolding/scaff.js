@@ -151,7 +151,12 @@ global.$scaff = {
 
     configJSON(_filePath, _configFn) {
         let ret = fs.existsSync(_filePath) ? fs.readFileSync(_filePath) : "";
-        ret = _configFn(JSON.parse(String(ret).replace(/\/\/[^\n]*\n/ig, "\n").replace(/\/\*[\s\S]*\*\//ig, "")));
+        try {
+            ret = JSON.parse(String(ret).replace(/\/\/[^\n]*\n/ig, "\n").replace(/\/\*[\s\S]*\*\//ig, ""));
+        } catch {
+            ret = undefined;
+        }
+        ret = _configFn(ret);
         if (ret) {
             fs.mkdirSync(path.dirname(_filePath), { recursive: true });
             fs.writeFileSync(_filePath, JSON.stringify(ret, null, 2));
