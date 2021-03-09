@@ -7,7 +7,6 @@
  *          // see the rollup document
  *      }
  * }
- * @returns 
  */
 
 module.exports = function () {
