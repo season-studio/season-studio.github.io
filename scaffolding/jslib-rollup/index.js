@@ -19,7 +19,8 @@ const devModules = [
 ];
 
 const files = {
-    "rollup/rollup.js": ".rollup/rollup.js"
+    "rollup/rollup.js": ".rollup/rollup.js",
+    "rollup/bundleConfig.js": ".rollup/bundleConfig.js"
 }
 
 module.exports = function (_baseUrl) {
@@ -35,6 +36,7 @@ module.exports = function (_baseUrl) {
     $scaff.configJSON(packageFile, json => {
         json || (json = {});
         json.bundleConfigs = (json.bundleConfigs || {});
+        json.bundleConfigs.configFile = (json.bundleConfigs.configFile || "./.rollup/bundleConfig.js");
         json.scripts = (json.scripts || {});
         json.scripts["rollup-release"] = "node .\\.rollup\\rollup.js --compress true";
         json.scripts["rollup-debug"] = "node .\\.rollup\\rollup.js";
