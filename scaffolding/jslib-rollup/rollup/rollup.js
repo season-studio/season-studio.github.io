@@ -195,8 +195,9 @@ if (require.main === module) {
         output: {
             $dir: getArg("--outputDir") || bundleConfigs.outputDir || ".dist",
             format: bundleConfigs.format || "umd",
+            sourcemap: true,
             name: getArg("--name") || bundleConfigs.libName || packageInfo.name,
-            intro: `var __STAMP__ = ${bundleConfigs.stamp !== undefined ? '"' + String(bundleConfigs.stamp) + '"' : Date.now()};`,
+            intro: `var __STAMP__ = ${bundleConfigs.stamp !== undefined ? '"' + String(bundleConfigs.stamp) + '"' : Date.now()};\nvar __VERSION__ = "${packageInfo.version}";`,
             globals: {
                 'regenerator-runtime': 'regeneratorRuntime'
             }
