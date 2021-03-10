@@ -9,7 +9,7 @@
  * }
  */
 
-module.exports = function () {
+module.exports = function (/*predefinedConfigs*/) {
     return {
         entries: "./src/index.js"
     }
