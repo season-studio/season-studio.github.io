@@ -1,0 +1,36 @@
+{
+    "en": {
+        "tip": "English",
+        "content": [
+            {
+                "caption": "About Roadmap",
+                "image": "./help/en/roadmap.gif"
+            }, {
+                "caption": "How to edit information of the project",
+                "imageType": "vertical",
+                "image": "./help/en/edit.gif"
+            }, {
+                "caption": "How to draw the roadmap",
+                "imageType": "vertical",
+                "image": "./help/en/draw.gif"
+            }
+        ]
+    },
+    "zh-cn": {
+        "tip": "中文（简体）",
+        "content": [
+            {
+                "caption": "Roadmap的结构",
+                "image": "./help/zh-cn/roadmap.gif"
+            }, {
+                "caption": "如何编辑Roadmap中的项目信息",
+                "imageType": "vertical",
+                "image": "./help/zh-cn/edit.gif"
+            }, {
+                "caption": "如何绘制并应用Roadmap",
+                "imageType": "vertical",
+                "image": "./help/zh-cn/draw.gif"
+            }
+        ]
+    }
+}

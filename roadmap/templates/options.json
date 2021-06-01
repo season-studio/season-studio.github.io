@@ -1,0 +1,23 @@
+{
+    "!$SummaryOptions": {
+        "check": {
+            "type": "switch",
+            "tip": "Project Checked",
+            "default": true
+        }
+    },
+    "!$TaskOptions": {
+        "mileStone": {
+            "type": "switch",
+            "tip": "Milestone",
+            "default": false
+        }
+    },
+    "!$TaskSummaryOptions": [
+        {
+            "key": "mileStone",
+            "valueMap": "console.log(value); return String(value) + 'ok'",
+            "textContent": true
+        }
+    ]
+}

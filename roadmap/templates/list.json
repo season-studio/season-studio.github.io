@@ -1,0 +1,8 @@
+[
+    {
+        "name": "Default",
+        "desc": "16:9, take month as the time scale, without the photo of the project",
+        "url": "templates/default/template.rtpx",
+        "thumb": "templates/default/thumb.png"
+    }
+]

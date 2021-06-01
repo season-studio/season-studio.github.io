@@ -1,0 +1,116 @@
+<html>
+<head>
+<title>Introduction of Roadmap Generator</title>
+<style>
+    ::-webkit-scrollbar {
+        width: 10px;
+        height: 10px;
+        background: transparent;
+    }
+    ::-webkit-scrollbar-corner {
+        background: transparent;
+    }
+    ::-webkit-scrollbar-track {
+        background: transparent;
+    }
+    ::-webkit-scrollbar-thumb
+    {
+        -webkit-border-radius: 7px;
+        border-radius: 7px;
+        background: rgba(57,57,57,0.1);
+    }
+    :hover::-webkit-scrollbar-thumb {
+        -webkit-border-radius: 7px;
+        border-radius: 7px;
+        background: rgba(0,0,0,0.3); 
+    }
+    .main {
+        margin: 0px;
+        position: absolute;
+        top: 0px;
+        left: 0px;
+        right: 0px;
+        bottom: 0px;
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+        align-items: stretch;
+    }
+    .bar {
+        z-index: 300;
+        margin: 0px;
+        padding: 6px;
+        background-color: #ddd;
+    }
+    #content {
+        flex-grow: 1;
+        margin: 0px;
+        z-index: 100;
+        padding: 0px 6px;
+        overflow: auto;
+        background-color: #f0f0f0;
+    }
+    #lang {
+        outline: none;
+        border: solid 1px #ccc;
+        border-radius: 6px;
+    }
+    p {
+        margin: 3px 0px;
+        font-weight: bolder;
+    }
+    img {
+        max-width: 800px;
+    }
+    img[d-image-type="vertical"] {
+        max-width: 400px;
+    }
+</style>
+</head>
+<body>
+    <div class="main">
+        <div class="bar">
+            <select name="lang" id="lang">
+            </select>
+        </div>
+        <div id="content">
+        </div>
+    </div>
+    <script type="text/javascript">
+        var contentJson = {};
+
+        function showContent(_lang) {
+            var content = contentJson[_lang];
+            content && (content = content.content);
+            var element = document.getElementById("content");
+            var contentHTML = content.map((item, index) => {
+                return `<p>${index + 1}. ${item.caption}</p><p><img d-image-type="${item.imageType}" src="${item.image}" /></p>`;
+            });
+            element.innerHTML = "";
+            element.insertAdjacentHTML("afterBegin", contentHTML.join(""));
+        }
+
+        function onLangChanged() {
+            showContent(this.value);
+        }
+
+        fetch("./help/index.json")
+            .then(response => response.json())
+            .then(json => {
+                contentJson = json;
+                var lang = String(navigator.language).toLowerCase();
+                (!json[lang]) && (lang = "en");
+                var element = document.getElementById("lang");
+                if (element) {
+                    var langOptionHTML = Object.entries(json).map(item => {
+                        return `<option value="${item[0]}">${item[1].tip}</option>`;
+                    });
+                    element.insertAdjacentHTML("afterBegin", langOptionHTML.join(""));
+                    element.addEventListener("change", onLangChanged.bind(element));
+                    setTimeout(() => {element.value = lang}, 0);
+                }
+                showContent(lang);
+            });
+    </script>
+</body>
+</html>
