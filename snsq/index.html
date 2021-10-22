@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+    <title>Hello World</title>
+    <script type="text/javascript" src="./runtime.js"></script>
+    <script type="text/javascript" src="./crypto-js/crypto-js.js"></script>
+    <script type="text/javascript" src="./crypto-js/aes.js"></script>
+    <script type="text/javascript" src="./index.js"></script>
+    <style>
+        body {
+            font-size: 17px;
+        }
+
+        #main {
+            z-index: 26;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 80px;
+            overflow: auto;
+        }
+
+        #mask {
+            z-index: 946;
+            position: fixed;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            height: 46px;
+            background-image: linear-gradient(to top, #f9f9f9 0%, #fcfcfc 90%, #fff 100%);
+            border: 0;
+            border-top: #999 1px solid;
+            display: flex;
+            align-items: center;
+            align-content: center;
+            justify-content: center;
+            justify-items: center;
+            padding: 17px;
+        }
+
+        #btnbook {
+            border-radius: 17px;
+            height: 46px;
+            width: 46px;
+            box-sizing: content-box;
+            border: 1px solid #999;
+            background-color: #fff;
+            color: none;
+            fill: #000;
+            padding: 6px;
+        }
+
+        #btnbook:active {
+            border: 1px solid rgb(0, 132, 255);
+            background-color: #fff;
+            color: none;
+            fill: rgb(0, 132, 255);
+            padding: 6px;
+        }
+
+        #dlgbk {
+            z-index: 957;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: rgba(255,255,255,0.1);
+        }
+
+        #dlg {
+            position: absolute;
+            left: 57px;
+            right: 57px;
+            bottom: 96px;
+            height: 90px;
+            padding: 17px;
+            border-radius: 17px;
+            border: 1px solid #999;
+            background-image: linear-gradient(to top, #eee 0%, #f9f9f9 10%, #fcfcfc 90%, #fff 100%);
+            box-shadow: 0px 0px 17px #ccc;
+            display: flex;
+            flex-direction: column;
+        }
+
+        #btndiv {
+            display: flex;
+            flex-direction: column;
+            padding-top: 17px;
+            align-items: center;
+            align-content: center;
+            justify-content: center;
+            justify-items: center;
+        }
+
+        #btnok {
+            width: 170px;
+            box-sizing: border-box;
+            border-radius: 17px;
+            border: 1px solid #999;
+            background-color: rgb(0, 132, 255);
+            color: #fff;
+            padding: 6px;
+            display: flex;
+            align-items: center;
+            align-content: center;
+            justify-content: center;
+            justify-items: center;
+        }
+
+        #btnok:active {
+            border-color: rgb(0, 132, 255);
+            background-color: rgb(0, 96, 255);
+        }
+
+        #inputurl {
+            height: 26px;
+            border: 1px solid #999;
+            outline: none;
+        }
+
+        #inputurl:focus {
+            border-color: rgba(0, 157, 255);
+        }
+
+        #testbox {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 81;
+            z-index: 917;
+        }
+    </style>
+</head>
+<body>
+    <div id="main"></div>
+    <div id="testbox" style="display: none;"></div>
+    <div id="mask">
+        <div id="btnbook">
+            <svg width="46" height="46" viewBox="0 0 96 96" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" overflow="hidden">
+                <defs>
+                    <clipPath id="clip0">
+                        <rect x="363" y="168" width="96" height="96" />
+                    </clipPath>
+                </defs>
+                <g clip-path="url(#clip0)" transform="translate(-363 -168)">
+                    <path d="M449 190 449 239 373 239 373 190 367 190 367 246 402 246C402 247.7 403.3 249 405 249L417 249C418.7 249 420 247.7 420 246L455 246 455 190 449 190Z" />
+                    <path d="M445 184 377 184 377 235 445 235 445 184ZM383 190 409 190 409 229 383 229 383 190ZM439 229 413 229 413 190 439 190 439 229Z" />
+                    <path d="M419 200 433 200 433 203 419 203Z" />
+                    <path d="M419 206 433 206 433 209 419 209Z" />
+                    <path d="M419 212 428.7 212 428.7 215 419 215Z" />
+                </g>
+            </svg>
+        </div>
+    </div>
+    <div id="dlgbk" style="display: none;">
+        <div id="dlg">
+            <input id="inputurl" type="text" value="" placeholder="请输入数据所在地址" onkeydown="(event.keyCode === 13) && onUrlInput(event)" />
+            <div id="btndiv">
+                <div id="btnok">OK</div>
+            </div>
+        </div>
+    </div>
+    <script type="text/javascript">
+        var uiObj = {};
+
+        function doEventBroke(_event) {
+            _event.preventDefault();
+            _event.stopPropagation();
+        }
+
+        function onBtnBook(_event) {
+            doEventBroke(_event);
+            uiObj.dlgbk.style.display = "";
+            uiObj.inputurl.value = "";
+            uiObj.inputurl.focus();
+        }
+
+        function onDlgbkClick(_event) {
+            doEventBroke(_event);
+            uiObj.dlgbk.style.display = "none";
+        }
+
+        function onUrlInput(_event) {
+            onDlgbkClick(_event);
+            var url = String(uiObj.inputurl.value).trim();
+            if (!window.snsqct || snsqct.checkUrl(url, uiObj)) {
+                if (url.startsWith(":")) {
+                    localStorage.setItem("snsqK", url);
+                    location.reload();
+                } else if (url) {
+                    fetch(url, {
+                        method: 'GET',
+                        mode: 'cors',
+                        cache: 'default'
+                    }).then(resp => resp.text())
+                        .then(text => {
+                            localStorage.setItem("default-content", text);
+                            uiObj.shadowRoot && (uiObj.shadowRoot.innerHTML = text);
+                        });
+                }
+            }
+        }
+
+        window.addEventListener('DOMContentLoaded', function () {
+            console.log(new Date());
+
+            uiObj.main = document.getElementById("main");
+            uiObj.dlgbk = document.getElementById("dlgbk");
+            uiObj.dlg = document.getElementById("dlg");
+            uiObj.inputurl = document.getElementById("inputurl");
+            uiObj.testBox = document.getElementById("testbox");
+            document.getElementById("btnbook").addEventListener("click", onBtnBook);
+            uiObj.dlgbk.addEventListener("click", onDlgbkClick);
+            uiObj.dlgbk.addEventListener("touchmove", doEventBroke);
+            uiObj.dlgbk.addEventListener("dblclick", doEventBroke);
+            uiObj.dlg.addEventListener("click", doEventBroke);
+            document.getElementById("btnok").addEventListener("click", onUrlInput);
+
+            uiObj.shadowRoot = uiObj.main.attachShadow({
+                mode: "open",
+                delegatesFocus: true
+            });
+            let defaultContent = localStorage.getItem("default-content");
+            defaultContent && uiObj.shadowRoot && (uiObj.shadowRoot.innerHTML = defaultContent);
+            
+            /* 
+            window.$a = snsqct.generate();
+            window.$a.switch(false).then(function (isStart) {
+                if (!isStart) return;
+
+            });
+            var maskDiv = document.getElementById("mask");
+            maskDiv && (new snsqct.HandListener(maskDiv, {prevent: true}));
+            */
+        });
+    </script>
+</body>
+</html>
