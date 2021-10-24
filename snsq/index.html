@@ -2,10 +2,11 @@
 <html>
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
-    <title>Test Books (SNSQ)</title>
+    <title>Test Books (snsq)</title>
     <script type="text/javascript" src="./runtime.js"></script>
     <script type="text/javascript" src="./crypto-js/crypto-js.js"></script>
     <script type="text/javascript" src="./crypto-js/aes.js"></script>
+    <script type="text/javascript" src="./jszip/jszip.min.js"></script>
     <script type="text/javascript" src="./index.js"></script>
     <style>
         body {
@@ -130,8 +131,9 @@
             top: 0;
             left: 0;
             right: 0;
-            bottom: 81;
             z-index: 917;
+            background-color: rgba(255, 255, 255, 0.4);
+            color: #999;
         }
     </style>
 </head>
@@ -174,6 +176,8 @@
 
         function onBtnBook(_event) {
             doEventBroke(_event);
+            (typeof window.$click === "function") && ($click(_event));
+            uiObj.mask.style.borderColor = "#999";
             uiObj.dlgbk.style.display = "";
             uiObj.inputurl.value = "";
             uiObj.inputurl.focus();
@@ -184,6 +188,22 @@
             uiObj.dlgbk.style.display = "none";
         }
 
+        function loadBookContent(_url) {
+            if (_url) {
+                fetch(_url, {
+                    method: 'GET',
+                    mode: 'cors',
+                    cache: 'default'
+                }).then(resp => (resp.status < 400) && resp.text())
+                    .then(text => {
+                        if (text) {
+                            localStorage.setItem("default-content", text);
+                            uiObj.shadowRoot && (uiObj.shadowRoot.innerHTML = text);
+                        }
+                    });
+            }
+        }
+
         function onUrlInput(_event) {
             onDlgbkClick(_event);
             var url = String(uiObj.inputurl.value).trim();
@@ -191,16 +211,8 @@
                 if (url.startsWith(":")) {
                     localStorage.setItem("snsqK", url);
                     location.reload();
-                } else if (url) {
-                    fetch(url, {
-                        method: 'GET',
-                        mode: 'cors',
-                        cache: 'default'
-                    }).then(resp => resp.text())
-                        .then(text => {
-                            localStorage.setItem("default-content", text);
-                            uiObj.shadowRoot && (uiObj.shadowRoot.innerHTML = text);
-                        });
+                } else {
+                    loadBookContent(url);
                 }
             }
         }
@@ -225,8 +237,14 @@
                 mode: "open",
                 delegatesFocus: true
             });
-            let defaultContent = localStorage.getItem("default-content");
-            defaultContent && uiObj.shadowRoot && (uiObj.shadowRoot.innerHTML = defaultContent);
+            if (uiObj.shadowRoot) {
+                let defaultContent = localStorage.getItem("default-content");
+                if (defaultContent) {
+                    uiObj.shadowRoot.innerHTML = defaultContent;
+                } else {
+                    loadBookContent(String(location.search).substr(1).trim());
+                }
+            }
             
             /* 
             window.$a = snsqct.generate();
