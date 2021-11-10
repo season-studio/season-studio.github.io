@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover, maximum-scale=1.0, user-scalable=0" />
+    <title>Season Studio Kit</title>
+    <link rel="manifest" href="./season-studio.webmanifest" />
+    <meta name="theme-color" content="#443030" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+    <meta name="apple-mobile-web-app-title" content="Season Studio Kit" />
+    <link rel="apple-touch-icon-precomposed" href="https://www.season-studio.top/logo/studio/studio-128.png" />
+    <link rel="apple-touch-icon" size="256x256" href="https://www.season-studio.top/logo/studio/studio-256.png" />
+    <link rel="apple-touch-icon" size="192x192" href="https://www.season-studio.top/logo/studio/studio-192.png" />
+    <link rel="apple-touch-icon" size="128x128" href="https://www.season-studio.top/logo/studio/studio-128.png" />
+    <link rel="apple-touch-icon" size="96x96" href="https://www.season-studio.top/logo/studio/studio-96.png" />
+    <link rel="apple-touch-icon" size="64x64" href="https://www.season-studio.top/logo/studio/studio-64.png" />
+    <link rel="apple-touch-icon" size="32x32" href="https://www.season-studio.top/logo/studio/studio-32.png" />
+    <link rel="icon" type="image/x-icon" sizes="32x32" href="https://www.season-studio.top/logo/studio/studio-32.ico">
+    <link rel="icon" type="image/x-icon" sizes="16x16" href="https://www.season-studio.top/logo/studio/studio-16.ico">
+    <link rel="shortcut icon" type="image/x-icon" href="https://www.season-studio.top/logo/studio/studio-32.ico" />
+    <link rel="bookmark" type="image/x-icon" href="https://www.season-studio.top/logo/studio/studio-32.ico" />
+    <link rel="apple-touch-icon-precomposed" href="https://www.season-studio.top/logo/studio/studio-128.png" />
+    <link rel="apple-touch-startup-image" href="./assets/splash.png" />
+    <link rel="stylesheet" type="text/css" href="./assets/main.css" />
+    <link rel="stylesheet" type="text/css" href="./assets/season-tip-style.css" />
+    <link rel="stylesheet" type="text/css" href="./assets/welcome-app.css" />
+    <script type="text/javascript" src="./jslib/runtime.js"></script>
+    <script type="text/javascript" src="./jslib/crypto-js/crypto-js.js"></script>
+    <script type="text/javascript" src="./jslib/crypto-js/aes.js"></script>
+    <script type="text/javascript" src="./jslib/crypto-js/md5.js"></script>
+    <script type="text/javascript" src="./jslib/jszip.min.js"></script>
+    <script type="text/javascript" src="./app.js" defer></script>
+</head>
+<body>
+    <div class="--app-menu-bar">
+        <div class="--app-menu-button --app-return-button"></div>
+        <div class="--app-menu-button --app-home-button"></div>
+    </div>
+    <div class="--app-container">
+        <div id="welcome-app">
+            <img src="/logo/studio/studio.png" t-show-shadow />
+            <h1 style="margin-bottom: 0;" t-show-shadow>Season Studio</h1>
+            <p style="margin-top: 6px; filter: invert(0.2);">Technology is people-oriented</p>
+            <div class="welcome-app-content-box">
+                <div class="welcome-app-content" d-content-desc="A USB Stack.Hello World">
+                    <img src="/logo/FelisUSB.png" />
+                    <div>FelisUSB</div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="--waiting-mask" id="waiting-box" style="display: none;">
+        <div class="--waiting-circle" style="--size:260px; --color: #f90; --time: 1.7s; --delay: -0.9s"></div>
+        <div class="--waiting-circle" style="--size:170px; --color: #86c335; --time: 1.5s; --delay: -1.5s"></div>
+        <div id="waiting-text">Loading...</div>
+    </div>
+</body>
+</html>

@@ -9,7 +9,7 @@
    id="svg5"
    inkscape:version="1.1 (c68e22c387, 2021-05-23)"
    sodipodi:docname="studio.svg"
-   inkscape:export-filename="D:\.Project\season-studio.github.io\logo\studio.png"
+   inkscape:export-filename="D:\.Project\season-studio.github.io\logo\studio\studio.png"
    inkscape:export-xdpi="96"
    inkscape:export-ydpi="96"
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
@@ -51,7 +51,7 @@
      id="layer2"
      inkscape:label="图层 2">
     <rect
-       style="fill:#534746;fill-opacity:1;stroke-width:6.4;stroke-linecap:round"
+       style="display:inline;fill:#534746;fill-opacity:1;stroke-width:6.4;stroke-linecap:round"
        id="rect11062"
        width="512"
        height="512"
@@ -60,7 +60,7 @@
        inkscape:label="background" />
     <path
        d="m 74.00138,369.50773 215.96081,0.64095 c 0,0 58.84037,5.61894 86.10411,-56.41304 14.20797,-32.32677 18.14708,-64.0757 34.63958,-81.1556 9.82456,-10.17447 37.60869,-8.41246 37.60869,-8.41246 0,0 0.49485,-32.16533 24.24771,-51.95937 L 511.79972,220.49615 512,512 H 139.49918 L 54.001375,369.50758 Z"
-       style="fill:#443736;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       style="display:inline;fill:#443736;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
        id="path31624"
        sodipodi:nodetypes="ccssccccccc"
        inkscape:label="shadow" />

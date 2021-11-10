@@ -1,0 +1,181 @@
+html {
+    height: 100%;
+    background-color: #443030;
+}
+
+body {
+    --safe-left: 0;
+    --safe-left: 0;
+    --safe-right: 0;
+    --safe-right: 0;
+    --safe-top: 0;
+    --safe-top: 0;
+    --safe-bottom: 0;
+    --safe-bottom: 0;
+    --bar-size: 32px;
+
+    margin: 0;
+    min-height: 100%;
+    box-sizing: border-box;
+    background: linear-gradient(to bottom, #443030, #574946) no-repeat;
+    background-size: 100%;
+    background-attachment: fixed;
+    color: #fff;
+}
+
+@supports (top: constant(safe-area-inset-top)) or (top: env(safe-area-inset-top)) {
+    body {
+        --safe-left: constant(safe-area-inset-left);
+        --safe-left: env(safe-area-inset-left);
+        --safe-right: constant(safe-area-inset-right);
+        --safe-right: env(safe-area-inset-right);
+        --safe-top: constant(safe-area-inset-top);
+        --safe-top: env(safe-area-inset-top);
+        --safe-bottom: constant(safe-area-inset-bottom);
+        --safe-bottom: env(safe-area-inset-bottom);
+    }
+}
+
+@media screen and (orientation:portrait) {
+    body {
+        padding: calc(var(--bar-size) + var(--safe-top)) var(--safe-right) var(--safe-bottom) var(--safe-left);
+    }
+
+    .--app-container {
+        top: calc(var(--bar-size) + var(--safe-top));
+    }
+}
+
+@media screen and (orientation:landscape) {
+    body {
+        padding: var(--safe-top) calc(var(--bar-size) + var(--safe-right)) var(--safe-bottom) var(--safe-left);
+    }
+
+    .--app-container {
+        top: var(--safe-top);
+    }
+}
+
+::-webkit-scrollbar {
+    width: 17px;
+    height: 17px;
+    background: transparent;
+}
+
+::-webkit-scrollbar-corner {
+    background: transparent;
+}
+
+::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+::-webkit-scrollbar-thumb
+{
+	-webkit-border-radius: 17px;
+    border-radius: 17px;
+    background: rgba(157,157,157,0.1) content-box;
+    border: 5px solid transparent;
+}
+
+:hover::-webkit-scrollbar-thumb {
+    -webkit-border-radius: 10px;
+    border-radius: 10px;
+    background: rgba(0,0,0,0.3) content-box;
+}
+
+.--app-menu-bar {
+    position: fixed;
+    top: var(--safe-top);
+    right: var(--safe-right);
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    align-items: center;
+    z-index: 99999;
+}
+
+.--app-menu-button {
+    width: var(--bar-size);
+    height: var(--bar-size);
+    margin: 0 0 0 2px;
+}
+
+.--app-home-button {
+    background: url(./icon-menu.svg) no-repeat center center;
+    background-size: 70%;
+    filter: invert(0.8);
+}
+
+.--app-return-button {
+    display: none;
+    background: url(./icon-return.svg) no-repeat center center;
+    background-size: 70%;
+    filter: invert(0.8);
+}
+
+.--app-menu-bar:hover .--app-return-button {
+    display: unset;
+}
+
+.--app-container {
+    left: 0;
+    right: 0;
+    position: absolute;
+    bottom: 0px;
+    box-sizing: border-box;
+    word-break: break-all;
+}
+
+.--waiting-mask {
+    position: fixed;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    background: linear-gradient(to bottom, #443030, #574946) no-repeat;
+    background-size: 100%;
+    background-attachment: fixed;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.--waiting-circle {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    width: 0px;
+    height: 0px;
+    border: none;
+    animation: loading-ani-frames var(--time, 1s) infinite linear var(--delay, 0s);
+}
+
+.--waiting-circle::after {
+    content: " ";
+    position: absolute;
+    left: 0;
+    top: 0;
+    transform: translate(-50%, -50%);
+    width: var(--size);
+    height: var(--size);
+    border: 26px solid transparent;
+    border-radius: var(--size);
+    border-color: var(--color) var(--color) var(--color) transparent;
+}
+
+.--waiting-mask #waiting-text {
+    color: #fff;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+}
+
+@keyframes loading-ani-frames {
+    0%   { transform: rotate(0deg); }
+    33%  { transform: rotate(140deg); }
+    66%  { transform: rotate(220deg); }
+    100% { transform: rotate(360deg); }
+  }
