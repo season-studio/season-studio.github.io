@@ -1052,8 +1052,15 @@
       text: "Reload App",
       action: "reload"
     };
+    var packageMenuItem = {
+      image: "./assets/icon-cube.svg",
+      imageInvert: true,
+      text: "Load Package",
+      action: "package"
+    };
     var homeMenuItem = {
-      image: "data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iOTYiIGhlaWdodD0iOTYiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PHBhdGggZD0iTTc3LDUyTDQ4LDI0TDEzLDU3TDgsNTJMNDgsMTRMODcsNTJMODIsNTdMNzcsNTJ2MzNoLTIzdi0yNGgtMTJ2MjRoLTIzdi0zMyIgc3Ryb2tlPSIjMDAwIiBzdHJva2Utd2lkdGg9IjMiIGZpbGw9Im5vbmUiIC8+PC9zdmc+",
+      //image: "data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iOTYiIGhlaWdodD0iOTYiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PHBhdGggZD0iTTc3LDUyTDQ4LDI0TDEzLDU3TDgsNTJMNDgsMTRMODcsNTJMODIsNTdMNzcsNTJ2MzNoLTIzdi0yNGgtMTJ2MjRoLTIzdi0zMyIgc3Ryb2tlPSIjMDAwIiBzdHJva2Utd2lkdGg9IjMiIGZpbGw9Im5vbmUiIC8+PC9zdmc+",
+      image: "./assets/icon-home.svg",
       imageInvert: true,
       text: "Home Page"
     };
@@ -1141,7 +1148,7 @@
 
                 case 19:
                   menuList.length > 0 && menuList.push(null);
-                  menuList.splice(menuList.length, 0, homeMenuItem, null, reloadMenuItem);
+                  menuList.splice(menuList.length, 0, packageMenuItem, homeMenuItem, null, reloadMenuItem);
 
                 case 21:
                 case "end":
@@ -1224,82 +1231,105 @@
         var _this2 = this;
 
         return _asyncToGenerator( /*#__PURE__*/regenerator.mark(function _callee3() {
-          var lastError, context, pkg, keyCode, keyHash, mapTree, item, relPath, mapRet, entryFile, container, entryFolder;
+          var lastError, context, packageName, pkg, keyCode, keyHash, mapTree, item, relPath, mapRet, entryFile, container, entryFolder;
           return regenerator.wrap(function _callee3$(_context3) {
             while (1) {
               switch (_context3.prev = _context3.next) {
                 case 0:
                   lastError = undefined;
                   context = undefined;
+                  packageName = _menuItem["package"];
 
-                  if (context) {
-                    _context3.next = 15;
+                  if (packageName) {
+                    _context3.next = 9;
                     break;
                   }
 
-                  _context3.prev = 3;
                   _context3.next = 6;
-                  return fetch("/.pwa.vir/".concat(_menuItem["package"], "/context.json"));
+                  return input$1("Input package code", {
+                    hideCancel: true,
+                    buttonAlign: "center"
+                  });
 
                 case 6:
-                  context = _context3.sent;
-                  _context3.next = 9;
-                  return context.json();
+                  packageName = _context3.sent;
 
-                case 9:
-                  context = _context3.sent;
-                  _context3.next = 15;
-                  break;
-
-                case 12:
-                  _context3.prev = 12;
-                  _context3.t0 = _context3["catch"](3);
-                  context = undefined; //lastError = error;
-
-                case 15:
-                  if (context) {
-                    _context3.next = 81;
+                  if (packageName) {
+                    _context3.next = 9;
                     break;
                   }
 
-                  _context3.prev = 16;
-                  _context3.next = 19;
-                  return fetch("./pkgs/".concat(_menuItem["package"], ".zip"));
+                  return _context3.abrupt("return");
 
-                case 19:
+                case 9:
+                  if (context) {
+                    _context3.next = 22;
+                    break;
+                  }
+
+                  _context3.prev = 10;
+                  _context3.next = 13;
+                  return fetch("/.pwa.vir/".concat(packageName, "/context.json"));
+
+                case 13:
+                  context = _context3.sent;
+                  _context3.next = 16;
+                  return context.json();
+
+                case 16:
                   context = _context3.sent;
                   _context3.next = 22;
-                  return context.blob();
+                  break;
+
+                case 19:
+                  _context3.prev = 19;
+                  _context3.t0 = _context3["catch"](10);
+                  context = undefined; //lastError = error;
 
                 case 22:
-                  context = _context3.sent;
-                  _context3.next = 25;
-                  return new JSZip__default["default"]().loadAsync(context);
+                  if (context) {
+                    _context3.next = 88;
+                    break;
+                  }
 
-                case 25:
-                  pkg = _context3.sent;
-                  _context3.t1 = JSON;
+                  _context3.prev = 23;
+                  _context3.next = 26;
+                  return fetch("./pkgs/".concat(packageName, ".zip"));
+
+                case 26:
+                  context = _context3.sent;
                   _context3.next = 29;
-                  return pkg.file("context.json").async("string");
+                  return context.blob();
 
                 case 29:
+                  context = _context3.sent;
+                  _context3.next = 32;
+                  return new JSZip__default["default"]().loadAsync(context);
+
+                case 32:
+                  pkg = _context3.sent;
+                  _context3.t1 = JSON;
+                  _context3.next = 36;
+                  return pkg.file("context.json").async("string");
+
+                case 36:
                   _context3.t2 = _context3.sent;
                   context = _context3.t1.parse.call(_context3.t1, _context3.t2);
-                  new URLParams(location.search.substr(1)).get("pkg") === _menuItem["package"] && (context.keepAlive = true);
+                  new URLParams(location.search.substr(1)).get("pkg") === packageName && (context.keepAlive = true);
                   keyCode = undefined;
 
                   if (!context.crypt) {
-                    _context3.next = 43;
+                    _context3.next = 50;
                     break;
                   }
 
                   keyHash = undefined;
 
-                case 35:
-                  _context3.next = 37;
+                case 42:
+                  _context3.next = 44;
                   return input$1("Input the access code:", "");
 
-                case 37:
+                case 44:
                   keyCode = _context3.sent;
                   keyHash = CryptoJS.MD5(keyCode).toString();
 
@@ -1312,32 +1342,32 @@
                     keyHash = undefined;
                   }
 
-                case 40:
+                case 47:
                   if (keyCode && !keyHash) {
-                    _context3.next = 35;
+                    _context3.next = 42;
                     break;
                   }
 
-                case 41:
+                case 48:
                   if (keyCode) {
-                    _context3.next = 43;
+                    _context3.next = 50;
                     break;
                   }
 
                   throw new Error("Need an access code");
 
-                case 43:
+                case 50:
                   mapTree = {};
                   pkg.forEach(function (relPath, file) {
                     if (!file.dir) {
-                      mapTree["".concat(context.keepAlive ? ":" : "").concat(_menuItem["package"], "/").concat(relPath)] = String(relPath);
+                      mapTree["".concat(context.keepAlive ? ":" : "").concat(packageName, "/").concat(relPath)] = String(relPath);
                     }
                   });
                   _context3.t3 = regenerator.keys(mapTree);
 
-                case 46:
+                case 53:
                   if ((_context3.t4 = _context3.t3()).done) {
-                    _context3.next = 66;
+                    _context3.next = 73;
                     break;
                   }
 
@@ -1345,89 +1375,88 @@
                   relPath = mapTree[item];
 
                   if (!(relPath.endsWith(".html") || relPath.endsWith(".htm") || relPath.endsWith(".js") || relPath.endsWith(".css"))) {
-                    _context3.next = 61;
+                    _context3.next = 68;
                     break;
                   }
 
                   _context3.t5 = Blob;
                   _context3.t6 = CryptoJS.AES;
-                  _context3.next = 54;
+                  _context3.next = 61;
                   return pkg.file(mapTree[item]).async("string");
 
-                case 54:
+                case 61:
                   _context3.t7 = _context3.sent;
                   _context3.t8 = keyCode;
                   _context3.t9 = _context3.t6.decrypt.call(_context3.t6, _context3.t7, _context3.t8).toString(CryptoJS.enc.Utf8);
                   _context3.t10 = [_context3.t9];
                   mapTree[item] = new _context3.t5(_context3.t10);
-                  _context3.next = 64;
+                  _context3.next = 71;
                   break;
 
-                case 61:
-                  _context3.next = 63;
+                case 68:
+                  _context3.next = 70;
                   return pkg.file(mapTree[item]).async("blob");
 
-                case 63:
+                case 70:
                   mapTree[item] = _context3.sent;
 
-                case 64:
-                  _context3.next = 46;
+                case 71:
+                  _context3.next = 53;
                   break;
 
-                case 66:
+                case 73:
                   _context3.t11 = context.keepAlive;
 
                   if (_context3.t11) {
-                    _context3.next = 70;
+                    _context3.next = 77;
                     break;
                   }
 
-                  _context3.next = 70;
+                  _context3.next = 77;
                   return AppWorker.sendMessage("clear-virtual-response", {
                     keepAlive: false
                   });
 
-                case 70:
-                  _context3.next = 72;
+                case 77:
+                  _context3.next = 79;
                   return AppWorker.sendMessage("map-virtual-response", mapTree);
 
-                case 72:
+                case 79:
                   mapRet = _context3.sent;
 
                   if (!(0 !== mapRet.ret)) {
-                    _context3.next = 75;
+                    _context3.next = 82;
                     break;
                   }
 
                   throw new Error("Fail in mapping virtual response(".concat(mapRet.ret, ")"));
 
-                case 75:
-                  _context3.next = 81;
+                case 82:
+                  _context3.next = 88;
                   break;
 
-                case 77:
-                  _context3.prev = 77;
-                  _context3.t12 = _context3["catch"](16);
+                case 84:
+                  _context3.prev = 84;
+                  _context3.t12 = _context3["catch"](23);
                   context = undefined;
                   lastError = _context3.t12;
 
-                case 81:
+                case 88:
                   if (!context) {
-                    _context3.next = 104;
+                    _context3.next = 110;
                     break;
                   }
 
-                  _context3.prev = 82;
-                  new URLParams(location.search.substr(1)).get("pkg") === _menuItem["package"] && (context.keepAlive = true);
-                  _context3.next = 86;
-                  return fetch("/.pwa.vir/".concat(_menuItem["package"], "/").concat(context.entry));
+                  _context3.prev = 89;
+                  _context3.next = 92;
+                  return fetch("/.pwa.vir/".concat(packageName, "/").concat(context.entry));
 
-                case 86:
+                case 92:
                   entryFile = _context3.sent;
-                  _context3.next = 89;
+                  _context3.next = 95;
                   return entryFile.text();
 
-                case 89:
+                case 95:
                   entryFile = _context3.sent;
                   container = document.querySelector(".--app-container");
                   WelcomeApp().hide();
@@ -1446,7 +1475,7 @@
 
                       if (filePath) {
                         if (filePath.indexOf("://") < 0 && !filePath.startsWith("/")) {
-                          newItem.setAttribute("href", "/.pwa.vir/".concat(_menuItem["package"], "/").concat(entryFolder, "/").concat(filePath));
+                          newItem.setAttribute("href", "/.pwa.vir/".concat(packageName, "/").concat(entryFolder, "/").concat(filePath));
                         }
                       }
 
@@ -1475,7 +1504,7 @@
 
                       if (filePath) {
                         if (filePath.indexOf("://") < 0 && !filePath.startsWith("/")) {
-                          newItem.setAttribute("src", "/.pwa.vir/".concat(_menuItem["package"], "/").concat(entryFolder, "/").concat(filePath));
+                          newItem.setAttribute("src", "/.pwa.vir/".concat(packageName, "/").concat(entryFolder, "/").concat(filePath));
                         }
                       }
 
@@ -1492,29 +1521,29 @@
                     }
                   });
 
-                  _this2[$pkgRec] = _menuItem["package"];
-                  _context3.next = 104;
+                  _this2[$pkgRec] = packageName;
+                  _context3.next = 110;
                   break;
 
-                case 100:
-                  _context3.prev = 100;
-                  _context3.t13 = _context3["catch"](82);
+                case 106:
+                  _context3.prev = 106;
+                  _context3.t13 = _context3["catch"](89);
                   lastError = _context3.t13;
                   context = undefined;
 
-                case 104:
-                  context ? lastError ? console.warn("Load \"".concat(_menuItem["package"], "\" finished with exception"), lastError) : console.log("Load \"".concat(_menuItem["package"], "\" success")) : (tip$2("Fail in loading package! ".concat(lastError ? "\n".concat(lastError.message) : ""), {
+                case 110:
+                  context ? lastError ? console.warn("Load \"".concat(packageName, "\" finished with exception"), lastError) : console.log("Load \"".concat(packageName, "\" success")) : (tip$2("Fail in loading package! ".concat(lastError ? "\n".concat(lastError.message) : ""), {
                     type: "error",
                     closable: true,
                     timeout: 1000
-                  }), console.error("Load \"".concat(_menuItem["package"], "\" failed"), lastError));
+                  }), console.error("Load \"".concat(packageName, "\" failed"), lastError));
 
-                case 105:
+                case 111:
                 case "end":
                   return _context3.stop();
               }
             }
-          }, _callee3, null, [[3, 12], [16, 77], [82, 100]]);
+          }, _callee3, null, [[10, 19], [23, 84], [89, 106]]);
         }))();
       }
     });
